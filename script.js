@@ -1,11 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
     var userInput = document.getElementById("userInput");
-    userInput.focus();
 
-    userInput.addEventListener("click", function () {
-        if (userInput.value !== "") {
-            userInput.select();
+    userInput.addEventListener("keydown", function (event) {
+        if (!(event.ctrlKey && event.key === "v")) {
+            event.preventDefault();
         }
+    });
+
+    userInput.addEventListener("paste", function (event) {
+
+        event.preventDefault();
+
+        var pastedText = (event.clipboardData || window.clipboardData).getData('text');
+
+        userInput.value = pastedText;
+
+        fetchData(event);
+    });
+
+    userInput.addEventListener("input", function (event) {
+        // Pokud je délka textu větší než 0, zamezíme mazání
+        if (userInput.value.length > 0) {
+            userInput.value = userInput.value.charAt(0);
+        }
+
+        fetchData(event);
+    });
+
+    userInput.addEventListener("click", function (event) {
+        userInput.select(); // Označíme text
     });
 });
 
