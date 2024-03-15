@@ -20,7 +20,7 @@ async function fetchData() {
   var id = getIdFromUrl(url);
 
   if (!id) {
-      displayError("Neplatný kód produktu nebo URL.");
+      displayError("Neplatný kód produktu nebo odkaz.");
       return;
   }
 
@@ -97,7 +97,7 @@ async function getFinalUrl(url) {
   try {
       const response = await fetch(url, { redirect: 'follow' });
       if (!response.ok) {
-          throw new Error('Chyba při přesměrování na konečnou stránku.');
+          throw new Error('Chyba přesměrování.');
       }
       return response.url;
   } catch (error) {
@@ -117,7 +117,7 @@ async function main() {
       if (productId) {
           document.getElementById('output').innerText = `ID produktu: ${productId}`;
       } else {
-          throw new Error('ID produktu nelze získat z URL.');
+          throw new Error('Nelze získat ID produktu.');
       }
   } catch (error) {
       document.getElementById('output').innerText = `Chyba: ${error.message}`;
