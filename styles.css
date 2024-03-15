@@ -9,6 +9,7 @@ body {
 a,
 a:visited {
     color: #6CA0F6;
+    text-decoration: none;
 }
 
 p {
@@ -66,11 +67,9 @@ input[type="text"] {
 }
 
 .overLimit {
-    margin-top: 16px;
     color: orange;
 }
 
-.underLimit {
-    margin-top: 16px;
-    color: green;
+.product-container {
+    margin-top: 20px;
 }
