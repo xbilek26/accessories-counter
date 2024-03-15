@@ -5,6 +5,10 @@ body {
     background-color: #f4f4f4;
 }
 
+p {
+    margin: 8px 0;
+}
+
 .container {
     max-width: 600px;
     margin: 50px auto;
@@ -35,9 +39,25 @@ input[type="text"] {
 }
 
 .overLimit {
-    color: red;
+    margin-top: 16px;
+    color: orange;
 }
 
 .underLimit {
+    margin-top: 16px;
     color: green;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #fff;
+    padding: 12px; /* Zmenšení výšky patičky */
+    border-top: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
 }

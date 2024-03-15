@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", function() {
+    var urlInput = document.getElementById("urlInput");
+    urlInput.focus();
+
+    urlInput.addEventListener("click", function() {
+        if (urlInput.value !== "") {
+            urlInput.select();
+        }
+    });
+});
+
 function fetchData() {
     var inputUrl = document.getElementById("urlInput").value.trim();
     if (inputUrl === "") {
