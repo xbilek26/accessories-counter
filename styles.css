@@ -6,6 +6,11 @@ body {
     color: #ddd;
 }
 
+a,
+a:visited {
+    color: #6CA0F6;
+}
+
 p {
     margin: 8px 0;
 }
