@@ -16,7 +16,7 @@ async function fetchData() {
       return;
   }
 
-  var url = (input.endsWith(".htm") || input.includes("dq=")) ? input : await getFinalUrl("https://www.alza.cz/kod/" + input);
+  var url = (input.includes(".htm") || input.includes("dq=")) ? input : await getFinalUrl("https://www.alza.cz/kod/" + input);
   var id = getIdFromUrl(url);
 
   if (!id) {
