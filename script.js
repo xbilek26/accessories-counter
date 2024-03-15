@@ -16,7 +16,7 @@ async function fetchData() {
       return;
   }
 
-  var url = input.endsWith(".htm") ? input : await getFinalUrl("https://www.alza.cz/kod/" + input);
+  var url = (input.endsWith(".htm") || input.includes("dq=")) ? input : await getFinalUrl("https://www.alza.cz/kod/" + input);
   var id = getIdFromUrl(url);
 
   if (!id) {
@@ -42,11 +42,16 @@ async function fetchData() {
 }
 
 function getIdFromUrl(url) {
-  var matches = url.match(/-d(\d+)\.htm/);
-  if (matches && matches.length > 1) {
-      return matches[1];
-  }
-  return null;
+    var matches = url.match(/-d(\d+)\.htm/);
+    if (matches && matches.length > 1) {
+        return matches[1];
+    } else {
+        matches = url.match(/dq=(\d+)/);
+        if (matches && matches.length > 1) {
+            return matches[1];
+        }
+    }
+    return null;
 }
 
 function displayCarouselItemsCount(data) {
