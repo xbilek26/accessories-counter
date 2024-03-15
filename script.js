@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var urlInput = document.getElementById("urlInput");
-    urlInput.focus();
+    var userInput = document.getElementById("userInput");
+    userInput.focus();
 
-    urlInput.addEventListener("click", function () {
-        if (urlInput.value !== "") {
-            urlInput.select();
+    userInput.addEventListener("click", function () {
+        if (userInput.value !== "") {
+            userInput.select();
         }
     });
 });
 
 async function fetchData() {
-    var input = document.getElementById("urlInput").value.trim();
+    var input = document.getElementById("userInput").value.trim();
     if (input === "") {
         clearData();
         return;
@@ -24,7 +24,7 @@ async function fetchData() {
         return;
     }
 
-    var apiUrl = "https://www.alza.cz/api/carousels/v1/commodities/" + id + "/recommendedAccesorySlots?country=CZ&pgrik=mAID&ucik=AiAEJQ.json";
+    var apiUrl = "https://www.alza.cz/api/carousels/v1/commodities/" + id + "/recommendedAccesorySlots?country=CZ&pgrik=mAID&ucik=AiAEJQ";
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -57,37 +57,35 @@ function getIdFromUrl(url) {
 
 function displayCarouselItemsCount(data) {
     var carousels = data.carousels;
-    var jsonDataElement = document.getElementById("jsonData");
+    var dataElement = document.getElementById("data");
     var totalItems = 0;
 
     clearError();
 
-    jsonDataElement.innerHTML = "";
+    dataElement.innerHTML = "";
 
     carousels.forEach(carousel => {
         var title = carousel.title;
         var itemsCount = carousel.items.length;
         totalItems += itemsCount;
 
-        jsonDataElement.innerHTML += "<p>" + title + ": " + itemsCount + "</p>";
+        dataElement.innerHTML += "<p>" + title + ": " + itemsCount + "</p>";
     });
 
-    jsonDataElement.innerHTML += "<hr>";
+    dataElement.innerHTML += "<hr>";
 
     var totalCountElement = document.createElement("p");
     totalCountElement.innerHTML = "<strong>Celkový počet: " + totalItems + "</strong>";
     if (totalItems > 125) {
-        totalCountElement.classList.add("overLimit");
-    } else {
-        totalCountElement.classList.add("underLimit");
+        totalCountElement.classList.add("closeToLimit");
     }
-    jsonDataElement.appendChild(totalCountElement);
+    dataElement.appendChild(totalCountElement);
 }
 
 
 function displayError(message) {
-    var jsonDataElement = document.getElementById("jsonData");
-    jsonDataElement.innerHTML = "<p id='error'>" + message + "</p>";
+    var dataElement = document.getElementById("data");
+    dataElement.innerHTML = "<p id='error'>" + message + "</p>";
 }
 
 function clearError() {
@@ -98,8 +96,8 @@ function clearError() {
 }
 
 function clearData() {
-    var jsonDataElement = document.getElementById("jsonData");
-    jsonDataElement.innerHTML = "";
+    var dataElement = document.getElementById("data");
+    dataElement.innerHTML = "";
 }
 
 async function getFinalUrl(url) {
@@ -147,8 +145,8 @@ async function displayProductName(id) {
         productNameContainer.classList.add("product-container");
         productNameContainer.appendChild(productNameLink);
 
-        var jsonDataElement = document.getElementById("jsonData");
-        jsonDataElement.appendChild(productNameContainer);
+        var dataElement = document.getElementById("data");
+        dataElement.appendChild(productNameContainer);
     } catch (error) {
         console.error('Chyba při načítání názvu produktu:', error);
         displayError("Chyba při načítání názvu produktu.");
