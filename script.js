@@ -34,6 +34,7 @@ async function fetchData() {
         })
         .then(data => {
             displayCarouselItemsCount(data);
+            displayProductName(id);
         })
         .catch(error => {
             console.error('Chyba při načítání dat:', error);
@@ -71,6 +72,8 @@ function displayCarouselItemsCount(data) {
         jsonDataElement.innerHTML += "<p>" + title + ": " + itemsCount + "</p>";
     });
 
+    jsonDataElement.innerHTML += "<hr>";
+
     var totalCountElement = document.createElement("p");
     totalCountElement.innerHTML = "<strong>Celkový počet: " + totalItems + "</strong>";
     if (totalItems > 125) {
@@ -80,6 +83,7 @@ function displayCarouselItemsCount(data) {
     }
     jsonDataElement.appendChild(totalCountElement);
 }
+
 
 function displayError(message) {
     var jsonDataElement = document.getElementById("jsonData");
@@ -110,21 +114,43 @@ async function getFinalUrl(url) {
     }
 }
 
-function extractProductIdFromUrl(url) {
-    const matches = url.match(/-d(\d+)\.htm/);
-    return matches && matches.length > 1 ? matches[1] : null;
-}
-
-async function main() {
+async function getProductTitleFromUrl(url) {
     try {
-        const finalUrl = await getFinalUrl(originalUrl);
-        const productId = extractProductIdFromUrl(finalUrl);
-        if (productId) {
-            document.getElementById('output').innerText = `ID produktu: ${productId}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Chyba při načítání HTML kódu stránky produktu.');
+        }
+        const html = await response.text();
+        const regex = /<h1 itemprop="name"[^>]*>([^<]*)<\/h1>/i;
+        const match = regex.exec(html);
+        if (match && match.length > 1) {
+            return match[1];
         } else {
-            throw new Error('Nelze získat ID produktu.');
+            throw new Error('Nepodařilo se najít název produktu.');
         }
     } catch (error) {
-        document.getElementById('output').innerText = `Chyba: ${error.message}`;
+        throw error;
+    }
+}
+
+async function displayProductName(id) {
+    try {
+        const productUrl = `https://www.alza.cz/-d${id}.htm#accessories`;
+        const productName = await getProductTitleFromUrl(productUrl);
+
+        var productNameLink = document.createElement("a");
+        productNameLink.textContent = "🔗" + productName;
+        productNameLink.href = productUrl;
+        productNameLink.target = "_blank";
+
+        var productNameContainer = document.createElement("div");
+        productNameContainer.classList.add("product-container");
+        productNameContainer.appendChild(productNameLink);
+
+        var jsonDataElement = document.getElementById("jsonData");
+        jsonDataElement.appendChild(productNameContainer);
+    } catch (error) {
+        console.error('Chyba při načítání názvu produktu:', error);
+        displayError("Chyba při načítání názvu produktu.");
     }
 }
