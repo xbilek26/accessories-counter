@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     var userInput = document.getElementById("userInput");
 
     userInput.addEventListener("keydown", function (event) {
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     userInput.addEventListener("input", function (event) {
-        // Pokud je délka textu větší než 0, zamezíme mazání
+
         if (userInput.value.length > 0) {
             userInput.value = userInput.value.charAt(0);
         }
@@ -28,12 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     userInput.addEventListener("click", function (event) {
-        userInput.select(); // Označíme text
+        userInput.select();
     });
 });
 
 async function fetchData() {
+
     var input = document.getElementById("userInput").value.trim();
+
     if (input === "") {
         clearData();
         return;
@@ -48,6 +51,7 @@ async function fetchData() {
     }
 
     var apiUrl = "https://www.alza.cz/api/carousels/v1/commodities/" + id + "/recommendedAccesorySlots?country=CZ&pgrik=mAID&ucik=AiAEJQ";
+
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -66,7 +70,9 @@ async function fetchData() {
 }
 
 function getIdFromUrl(url) {
+
     var matches = url.match(/-d(\d+)\.htm/);
+
     if (matches && matches.length > 1) {
         return matches[1];
     } else {
@@ -79,6 +85,7 @@ function getIdFromUrl(url) {
 }
 
 function displayCarouselItemsCount(data) {
+
     var carousels = data.carousels;
     var dataElement = document.getElementById("data");
     var totalItems = 0;
@@ -98,7 +105,9 @@ function displayCarouselItemsCount(data) {
     dataElement.innerHTML += "<hr>";
 
     var totalCountElement = document.createElement("p");
+
     totalCountElement.innerHTML = "<strong>Celkový počet: " + totalItems + "</strong>";
+
     if (totalItems > 125) {
         totalCountElement.classList.add("closeToLimit");
     }
@@ -107,18 +116,22 @@ function displayCarouselItemsCount(data) {
 
 
 function displayError(message) {
+
     var dataElement = document.getElementById("data");
     dataElement.innerHTML = "<p id='error'>" + message + "</p>";
 }
 
 function clearError() {
+
     var errorElement = document.getElementById("error");
+
     if (errorElement) {
         errorElement.remove();
     }
 }
 
 function clearData() {
+
     var dataElement = document.getElementById("data");
     dataElement.innerHTML = "";
 }
