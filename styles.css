@@ -2,7 +2,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #262626;
+    color: #ddd;
 }
 
 p {
@@ -15,41 +16,48 @@ footer {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    background-color: #fff;
+    background-color: #333;
     padding: 12px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #555;
     font-family: Arial, sans-serif;
     text-align: center;
     box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+    color: #ddd;
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #333;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #ddd;
 }
 
 label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    color: #ddd;
 }
 
 input[type="text"] {
     width: calc(100% - 20px);
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     margin-bottom: 0px;
+    background-color: #444;
+    color: #ddd;
 }
 
 #jsonData {
     margin-top: 0px;
     padding: 10px;
     border-radius: 5px;
+    background-color: #333;
+    color: #ddd;
 }
 
 .overLimit {
