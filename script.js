@@ -108,9 +108,8 @@ function displayCarouselItemsCount(data) {
 
     totalCountElement.innerHTML = "<strong>Celkový počet: " + totalItems + "</strong>";
 
-    if (totalItems > 125) {
-        totalCountElement.classList.add("closeToLimit");
-    }
+    totalCountElement.classList.add("totalCount");
+
     dataElement.appendChild(totalCountElement);
 }
 
