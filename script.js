@@ -99,7 +99,7 @@ function displayCarouselItemsCount(data) {
         var itemsCount = carousel.items.length;
         totalItems += itemsCount;
 
-        dataElement.innerHTML += "<p>" + title + ": " + itemsCount + "</p>";
+        dataElement.innerHTML += "<p>• " + title + ": " + itemsCount + "</p>";
     });
 
     dataElement.innerHTML += "<hr>";
